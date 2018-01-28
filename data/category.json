@@ -1,0 +1,22 @@
+[
+  {
+	"name":"Northy",
+	"items": [
+	  {"name":"Rajma Chawal", "price": "50", "quantity": 0, "addedToCart": false, "showAddToCart": false},
+	  {"name":"Kadi Chawal",  "price": "50", "quantity": 0, "addedToCart": false, "showAddToCart": false},
+	  {"name":"Momos", "price": "50", "quantity": 0, "addedToCart": false, "showAddToCart": false},
+	  {"name":"Poori Masala", "price": "35", "quantity": 0, "addedToCart": false, "showAddToCart": false}
+  	]
+  },
+  {
+	"name":"Snacks",
+	"items": [
+	  {"name":"Vada", "price": "10", "quantity": 0, "addedToCart": false, "showAddToCart": false},
+	  {"name":"Paneer wraps", "price": "90", "quantity": 0, "addedToCart": false, "showAddToCart": false},
+	  {"name":"samosas", "price": "23", "quantity": 0, "addedToCart": false, "showAddToCart": false},
+	  {"name":"pakodas", "price": "20", "quantity": 0, "addedToCart": false, "showAddToCart": false},
+	  {"name":"bhel puri", "price": "45", "quantity": 0, "addedToCart": false, "showAddToCart": false}
+	]
+  }
+  
+]
