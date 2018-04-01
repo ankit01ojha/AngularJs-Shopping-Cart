@@ -1,7 +1,25 @@
-/**
- * Created by Ankit Raj Ojha
- */
-var app = angular.module( 'shopApp', [] );
+var app = angular.module('shopApp', ['ngRoute']);
+
+// configure our routes
+app.config(function($routeProvider, $locationProvider) {
+            $routeProvider
+        .when('/', {
+            templateUrl : 'login.html',
+            controller  : 'loginController'
+        })
+        .when('/products', {
+          templateUrl : 'products.html',
+          controller : 'mainController'
+        })
+        .when('/register', {
+          templateUrl : 'register.html',
+          controller : 'registerController'
+        })
+        .otherwise({ redirectTo: '/' });
+
+        $locationProvider.html5Mode(true);
+});
+
 app.controller( 'mainController', function( $scope,$http ) {
     $scope.contents =  null;
     $scope.added = [];
@@ -27,16 +45,16 @@ app.controller( 'mainController', function( $scope,$http ) {
             quantity: parseInt(quantity)
         };
 
-            Totprice = parseInt(Totprice) + parseInt(item.price); 
+            Totprice = parseInt(Totprice) + parseInt(item.price);
             Totprice = Totprice*quantity;
-            
+
             for(var i=0;i<$scope.added.length;i++){
                 if(item.name == $scope.added[i].name){
                         alert("item already added to the cart");
                         $scope.total = $scope.total - ($scope.added[index].price * $scope.added[index].quantity);
                         $scope.added.splice(index, 1);
                         break;
-                    
+
                 }
              }
             $scope.added.push( item );
@@ -59,17 +77,17 @@ app.controller( 'mainController', function( $scope,$http ) {
 
             //total charge calculation
             $scope.total = $scope.delivery + Totprice;
-            
-    
+
+
         }
 
 
     $scope.recalculateTotal = function(item){
         $scope.total =0;
        for(var i=0;i<$scope.added.length;i++){
-        
+
            $scope.total = $scope.total + ($scope.added[i].price*$scope.added[i].quantity);
-        
+
       }
 
        $scope.delivery = 0;
@@ -86,7 +104,7 @@ app.controller( 'mainController', function( $scope,$http ) {
             if($scope.total>500){
                 $scope.delivery = 30;
             }
-            
+
 
             //total charge calculation
             $scope.total = $scope.delivery + $scope.total;
@@ -115,7 +133,7 @@ app.controller( 'mainController', function( $scope,$http ) {
       for(var i=0;i<$scope.added.length;i++){
         if(item.name == $scope.added[i].name){
             $scope.added[i].quantity--;
-            
+
         }
       }
       if (item.quantity <= 0) {
@@ -127,7 +145,7 @@ app.controller( 'mainController', function( $scope,$http ) {
                 if(item.name == $scope.added[index].name){
                 $scope.total = $scope.total - ($scope.added[index].price * $scope.added[index].quantity);
                 $scope.added.splice(index, 1);
-            
+
         }
       }
 
@@ -149,14 +167,46 @@ app.controller( 'mainController', function( $scope,$http ) {
         if(item.name == $scope.added[index].name){
             $scope.total = $scope.total - ($scope.added[index].price * $scope.added[index].quantity);
             $scope.added.splice(index, 1);
-            
+
         }
       }
       //$scope.recalculateTotal(item);
     }
-  
+
+});
 
 
+app.controller( 'loginController', function($scope,$rootScope,$http,$location) {
 
+    $scope.loginData = null;
+    $http.get( 'data/login.json' )
+        .success( function( data ) {
+            $scope.loginData = data;
+        })
+
+    $scope.login = function(user) {
+        var flag = 0;
+        for(var i = 0; i < $scope.loginData.length; i++) {
+            var obj = $scope.loginData[i];
+            if(user.name === obj.username && user.pass === obj.pass) {
+              $location.path("/products");
+                break;
+            } else {
+                flag = 1;
+            }
+        }
+
+        if ( flag == 1 ) {
+            alert( "Wrong password or username. Try again");
+        }
+    }
+
+    $scope.register = function() {
+      $location.path("/register");
+    }
+
+});
+
+app.controller('registerController', function(){
 
 });
